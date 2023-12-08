@@ -11,7 +11,7 @@ using academystudentsbackend.Models;
 namespace academystudentsbackend.Migrations
 {
     [DbContext(typeof(CourseContext))]
-    [Migration("20231109113805_InitialCreate")]
+    [Migration("20231207111018_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

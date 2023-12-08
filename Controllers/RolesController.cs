@@ -9,35 +9,29 @@ namespace academystudentsbackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController:ControllerBase
+    public class RolesController:ControllerBase
     {   
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
 
-    public UsersController(UserManager<AppUser> userManager,RoleManager<AppRole> roleManager)
+    public RolesController(UserManager<AppUser> userManager,RoleManager<AppRole> roleManager)
     {
         _userManager = userManager;
         _roleManager = roleManager;
     }
 
         [HttpGet]
-        [Route("getusers")]
-        public async Task<IActionResult> GetUsers()
+        [Route("getrole")]
+        [Authorize]
+        public async Task<IActionResult> GetRole()
         {
-            var users = await _userManager.Users.ToListAsync();
-            if(users == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
                 return NotFound();
             }
-            return Ok(users);
-        }
-
-        [HttpGet]
-        [Route("getuser")]
-        public async Task<IActionResult> GetUser()
-        {
-            var loggedInAcc = await _userManager.GetUserAsync(User);
-            return Ok(loggedInAcc);
+            var role = await _userManager.GetRolesAsync(user);  
+            return Ok(role);
         }
     }
 }

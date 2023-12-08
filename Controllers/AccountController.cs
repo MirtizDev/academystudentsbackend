@@ -81,6 +81,7 @@ namespace academystudentsbackend.Controllers
                     Email = model.Email,
                 };
                 IdentityResult result = await _userManager.CreateAsync(user,model.Password);
+                await _userManager.AddToRoleAsync(user,"Student");
                 if(result.Succeeded)
                 {
                     return Ok();

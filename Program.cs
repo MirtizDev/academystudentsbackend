@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-builder.Services.AddDbContext<CourseContext>(x => x.UseSqlite("Data Source=courses.db"));
+builder.Services.AddDbContext<CourseContext>(x => x.UseSqlite("Data Source=database.db"));
 builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<CourseContext>();
 
 builder.Services.AddCors(options => {
@@ -101,5 +101,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+IdentitySeedData.IdentityTestRoles(app);
 
 app.Run();
